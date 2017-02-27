@@ -33,9 +33,11 @@ int main(){
 	Node* check = head;
 	Node* prev = head;
 	cout << "THE END THE END" << endl;
-	size_t len = strlen(ans);
-	ans[len] = check->fir[0];
-	ans[len+1] = '\0';
+	if(check->fir[0] != '('){
+	  size_t len = strlen(ans);
+	  ans[len] = check->fir[0];
+	  ans[len+1] = '\0';
+	}
 	if(check->next != NULL){
 	  prev = check->next;
 	}
@@ -92,10 +94,12 @@ void push(char* ch,int a,char* as){
 	else{
 	  cout << "hello" << endl;
 	  Node* nn = pop();
-	  size_t leng = strlen(as);
-	  as[leng] = nn->fir[0];
-	  as[leng+1] = '\0';
-	  delete nn;
+	  if(ch[a] != '('){
+	    size_t leng = strlen(as);
+	    as[leng] = nn->fir[0];
+	    as[leng+1] = '\0';
+	  }
+          delete nn;
 	}
         if(peek() == NULL){
 	  break;
@@ -115,9 +119,27 @@ void push(char* ch,int a,char* as){
     }    
   }
   if(ch[a] == ')' || ch[a] == '('){
-    
+    if(ch[a] == ')'){
+      while(peek()->fir[0] != '('){
+	Node* nnn = pop();
+	if(ch[a] != '('){
+	  size_t lengx = strlen(as);
+	  as[lengx] = nnn->fir[0];
+	  as[lengx+1] = '\0';
+	}
+	delete nnn;
+      }
+    }
+    if(ch[a] == '('){
+      Node* tempx = new Node;
+      tempx->next = head;
+      tempx->fir[0] = ch[a];
+      tempx->pre = 0;
+      head = tempx;
+    }
   }
 }
+//peeking at the head of the stack
 Node* peek(){
   return head;
   /*
@@ -133,6 +155,7 @@ Node* peek(){
   }
   */
 }
+//popping the thingy off the stack
 Node* pop(){
   /*
   Node* check = head;

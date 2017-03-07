@@ -54,6 +54,7 @@ int main(){
   }
   return 0;
 }
+//pushing the char to either the output queue or to the stack
 void push(char* ch,int a,char* as){
   if(isdigit(ch[a])){
     cout << "digit" << endl;
